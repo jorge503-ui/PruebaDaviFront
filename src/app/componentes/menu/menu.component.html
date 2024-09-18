@@ -1,0 +1,11 @@
+<nav class="toolbar">
+  <button class="menu-button" (click)="toggleMenu()">Menu</button>
+  @if (menuVisible) {
+    <div class="menu">
+      <a [routerLink]="['/consultarInfoPersona']">Consultar Info Persona</a>
+      <a [routerLink]="['/clientes']">Clientes</a>
+    </div>
+  }
+  <span class="spacer"></span>
+  <span>Prueba Davi</span>
+</nav>

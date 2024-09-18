@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="left-panel"></div>
+
+  <div class="center-panel">
+    <h2>Solicitudes para Persona ID: {{ personaId }}</h2><br>
+    <form (ngSubmit)="onSubmit(solicitudForm)" #solicitudForm="ngForm" class="form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="monto">Monto</label>
+          <input [(ngModel)]="solicitud.monto" name="monto" id="monto" type="number" min="1"
+            (input)="validatePositiveNumber($event)" required #monto="ngModel">
+          <div *ngIf="monto.invalid" class="error">
+            <small *ngIf="monto.errors?.['required']">El monto es requerido.</small>
+            <small *ngIf="monto.errors?.['min']">El monto debe ser mayor a 1.</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="formaPago">Forma de Pago:</label>
+          <select [(ngModel)]="solicitud.formaPago.id" name="formaPago" id="formaPago" required #formaPago="ngModel">
+            <option *ngFor="let formaPago of formasDePago" [value]="formaPago.id">
+              {{ formaPago.descripcion }}
+            </option>
+          </select>
+          <div *ngIf="solicitud.formaPago.id==0" class="error">
+            <small>La forma de pago es requerida.</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="plazo">Plazo</label>
+          <input [(ngModel)]="solicitud.plazo" name="plazo" id="plazo" type="number" min="1"
+            (input)="validatePositiveNumber($event)" required #plazo="ngModel">
+          <div *ngIf="plazo.invalid" class="error">
+            <small *ngIf="plazo.errors?.['required']">El plazo es requerido.</small>
+            <small *ngIf="plazo.errors?.['min']">El plazo debe mayor a 1.</small>
+          </div>
+        </div>
+        <div class="form-group-btn">
+          <button type="submit" class="btn" [disabled]="solicitudForm.invalid">Guardar</button>
+          <button (click)="resetForm()" class="btn-reset">Reset</button>
+        </div>
+      </div>
+    </form>
+    <div class="error">{{errorMessage}}</div>
+    <div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>ID Solicitud</th>
+            <th>Fecha Creación</th>
+            <th>Monto</th>
+            <th>Plazo</th>
+            <th>Forma de Pago</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let solicitud of solicitudes">
+            <td>{{ solicitud.id }}</td>
+            <td>{{ solicitud.fechaCreacion }}</td>
+            <td>{{ solicitud.monto }}</td>
+            <td>{{ solicitud.plazo }}</td>
+            <td>{{ solicitud.formaPago.descripcion }}</td>
+            <td>
+              <button (click)="editSolicitud(solicitud)" class="btn">Modificar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+  <div class="right-panel"></div>
+</div>

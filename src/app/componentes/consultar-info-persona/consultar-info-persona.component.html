@@ -1,0 +1,46 @@
+<div class="container">
+  <div class="left-panel"></div>
+  
+  <div class="center-panel">
+    <h2>Consultar Info Persona</h2><br>
+    <div  class="form-container">
+      <table>
+        <tr>
+          <th></th>
+          <th><label for="personId">Id de la Persona</label></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th><input id="personId" type="number" min="0" (input)="validatePositiveNumber($event)" class="form-group"/></th>
+          <th></th>
+        </tr>
+        <tr>
+          <th></th>
+          <th><button (click)="buscarInfoPersona()"class="submit-button">Invocar</button></th>
+          <th></th>
+        </tr>
+      </table>
+    </div>
+
+    <div *ngIf="resultado">
+      <h3>Resultado</h3>
+      <p><strong>Name:</strong> {{ resultado.name }}</p>
+      <p><strong>SSN:</strong> {{ resultado.ssn }}</p>
+      <p><strong>DOB:</strong> {{ resultado.dob }}</p>
+      <p><strong>Home Address:</strong> {{ resultado.home.street }}, {{ resultado.home.city }}, {{ resultado.home.state }}, {{ resultado.home.zip }}</p>
+      <p><strong>Office Address:</strong> {{ resultado.office.street }}, {{ resultado.office.city }}, {{ resultado.office.state }}, {{ resultado.office.zip }}</p>
+      <p><strong>Age:</strong> {{ resultado.age }}</p>
+    </div>
+
+    <div *ngIf="notFound">
+      <p>No se encontró información para el ID ingresado.</p>
+    </div>
+
+    <div *ngIf="error">
+      <p>Error: {{ error }}</p>
+    </div>  
+  </div>
+  
+  <div class="right-panel"></div>
+</div>
